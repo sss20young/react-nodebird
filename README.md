@@ -1,5 +1,4 @@
 ## React로 NodeBird SNS 만들기
------------
 <br>
 
 >### 섹션 0. Hello, Next.js
