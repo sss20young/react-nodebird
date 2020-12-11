@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import Head from 'next/head';
-import AppLayout from '../components/AppLayout';
+import React, { useState, useCallback } from 'react';
 import { Form, Input, Select, Checkbox, Button } from 'antd';
 
 const { Option } = Select;
@@ -22,35 +20,28 @@ const Signup = () => {
     const [ rememberme, setRememberme ] = useState(true);
     const [ passworderror, setPasswordError ] = useState(false);
 
-
-    const onSubmit = (e) => {
+    // useCallback: state 변경시, props로 전달하는 함수도 리렌더링 되는데, 이때 리렌더링 방지
+    const onSubmit = useCallback((e) => {
         // e.preventDefault();
         if(password !== passwordcheck) {
             return setPasswordError(true);
         }
-        console.log({
-            id,
-            password,
-            passwordcheck,
-            gender,
-            rememberme
-        });
-    }
+    }, [password, passwordcheck]);
 
-    const onChangeId = (e) => {
+    const onChangeId = useCallback((e) => {
         setId(e.target.value);
-    }
+    }, []);
 
-    const onChangePassword = (e) => {
+    const onChangePassword = useCallback((e) => {
         setPassword(e.target.value);
-    }
+    }, []);
 
-    const onChangePasswordCheck = (e) => {
+    const onChangePasswordCheck = useCallback((e) => {
         setPasswordError(e.target.value !== password);
         setPasswordcheck(e.target.value);
-    }
+    }, [password]);
 
-    const onChangeGender = value => {
+    const onChangeGender = useCallback(value => {
         switch (value) {
             case 'male':
                 setGender('male');
@@ -62,19 +53,14 @@ const Signup = () => {
                 setGender('other');
                 break;
         }
-    }
+    }, []);
 
-    const onChangeRememberMe = (e) => {
+    const onChangeRememberMe = useCallback((e) => {
         setRememberme(e.target.checked);
-    }
+    }, []);
 
     return (
         <>
-            <Head>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.2/antd.min.css"></link>
-            </Head>
-            <AppLayout>
-            </AppLayout>
             <Form
                 {...layout}
                 name="basic"

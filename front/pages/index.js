@@ -1,17 +1,33 @@
 import React from 'react';
-import Head from 'next/head';
-import AppLayout from '../components/AppLayout';
+import PostForm from '../components/PostForm';
+import PostCard from '../components/PostCard';
+
+const dummy = {
+    isLoggedIn: true,
+    imagePaths: [],
+    mainPosts: [{
+        User: {
+            id: 1,
+            nickname: 'SeoyoungKim',
+        },
+        content: '첫 번째 게시글',
+        img: 'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
+    }]
+}
 
 const Home = () => {
     return (
-        <>
-            <Head>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.2/antd.min.css"></link>
-            </Head>
-            <AppLayout>
-                <div>Hello, Next!</div>
-            </AppLayout>
-        </>
+        <div>
+            {/* 업로드 */}
+            {dummy.isLoggedIn && <PostForm />}
+
+            {/* 게시글 리스트 */}
+            {dummy.mainPosts.map((c) => {
+                return (
+                    <PostCard key={c} post={c} />
+                )
+            })}
+        </div>
     );
 };
 

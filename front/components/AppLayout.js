@@ -1,6 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
-import { Menu, Input, Button } from 'antd';
+import PropTypes from 'prop-types';
+import { Menu, Input, Row, Col } from 'antd';
+import LoginForm from './LoginForm';
+import UserProfile from '../components/UserProfile';
+
+const dummy = {
+    nickname: 'SeoyoungKim',
+    Post: [],
+    Followings: [],
+    Followers: [],
+    isLoggedIn: false,
+}
 
 const AppLayout = ({ children }) => {
     return(
@@ -15,10 +26,25 @@ const AppLayout = ({ children }) => {
                     </Input.Search>
                 </Menu.Item>
             </Menu>
-            <Link href="/signup"><a><Button>회원가입</Button></a></Link>
-            {children}
+            <Row gutter={8}>
+                {/* xs: 모바일, sm: 작은 화면, md: 중간 화면, lg: 큰 화면 */}
+                {/* 24가 최대 */}
+                <Col xs={24} md={6}>
+                    {dummy.isLoggedIn ? <UserProfile dummy={dummy} /> : <LoginForm />}
+                </Col>
+                <Col xs={24} md={12}>
+                    {children}
+                </Col>
+                <Col xs={24} md={6}>
+                    <Link href="https://www.github.com/sss20young"><a target="_blank">Made by sss20young</a></Link>
+                </Col>
+            </Row>
         </div>
     );
+}
+
+AppLayout.propTypes = {
+    children: PropTypes.node,
 }
 
 export default AppLayout;

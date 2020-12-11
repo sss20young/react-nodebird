@@ -1,17 +1,53 @@
 import React from 'react';
-import Head from 'next/head';
-import AppLayout from '../components/AppLayout';
+import { Button, List, Card } from 'antd';
+import { StopOutlined } from '@ant-design/icons';
+import NicknameEditForm from '../components/NicknameEditForm';
 
 const Profile = () => {
     return (
-        <>
-            <Head>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.2/antd.min.css"></link>
-            </Head>
-            <AppLayout>
-                <div>Profile</div>
-            </AppLayout>
-        </>
+        <div>
+            <NicknameEditForm />
+            <List 
+                style={{ marginBottom: '20px' }}
+                grid={{ gutter: 4, xs: 2, md: 3 }}
+                size="small"
+                header={<div>팔로잉 목록</div>}
+                loadMore={<Button style={{ width: '100%' }}>더 보기</Button>}
+                bordered
+                dataSource={['김서영', '노드버드', '리액트']}
+                renderItem={item => (
+                    <List.Item style={{ marginTop: '20px' }}>
+                        <Card
+                            actions={[
+                                <StopOutlined />,
+                            ]}
+                        >
+                            <Card.Meta description={item} />
+                        </Card>
+                    </List.Item>
+                )}
+            />
+            <List 
+                style={{ marginBottom: '20px' }}
+                grid={{ gutter: 4, xs: 2, md: 3}}
+                size="small"
+                header={<div>팔로워 목록</div>}
+                loadMore={<Button style={{ width: '100%' }}>더 보기</Button>}
+                bordered
+                dataSource={['김서영', '노드버드', '리액트']}
+                renderItem={item => (
+                    <List.Item style={{ marginTop: '20px' }}>
+                        <Card
+                            actions={[
+                                <StopOutlined />,
+                            ]}
+                        >
+                            <Card.Meta description={item} />
+                        </Card>
+                    </List.Item>
+                )}
+            />
+        </div>
     );
 };
 
