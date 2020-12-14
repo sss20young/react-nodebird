@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Form, Input, Select, Checkbox, Button } from 'antd';
+import { useDispatch } from 'react-redux';
+import { signUpAction } from '../reducers/user';
 
 const { Option } = Select;
 
@@ -19,6 +21,7 @@ const Signup = () => {
     const [ gender, setGender ] = useState('');
     const [ rememberme, setRememberme ] = useState(true);
     const [ passworderror, setPasswordError ] = useState(false);
+    const dispatch = useDispatch();
 
     // useCallback: state 변경시, props로 전달하는 함수도 리렌더링 되는데, 이때 리렌더링 방지
     const onSubmit = useCallback((e) => {
@@ -26,6 +29,12 @@ const Signup = () => {
         if(password !== passwordcheck) {
             return setPasswordError(true);
         }
+        dispatch(signUpAction({
+            id,
+            password,
+            gender,
+        }));
+
     }, [password, passwordcheck]);
 
     const onChangeId = useCallback((e) => {

@@ -1,5 +1,4 @@
 ## React로 NodeBird SNS 만들기
------------
 <br>
 
 >### 섹션 0. Hello, Next.js
@@ -20,6 +19,18 @@
 * ##### 2-5. 메인 화면 만들기
 * ##### 2-6. 프로필 화면 만들기
 * ##### 2-7. 컴포넌트 분리하기
+<br>
+
+>### 섹션 2. 리덕스 익히기
+* ##### 3-1. redux 주요 개념 소개
+* ##### 3-2. 첫 리듀서 만들기
+* ##### 3-3. 불변성과 리듀서 여러 개 합치기
+* ##### 3-4. redux와 react 연결하기
+* ##### 3-5. redux devtools 사용하기
+* ##### 3-6. react-redux 훅 사용하기
+* ##### 3-7. react-redux connect
+* ##### 3-8. dummy 데이터로 리덕스 사용하기
+* ##### 3-9. 리액트 state와 리덕스 state
 <br>
 
 참고 : https://www.inflearn.com/course/react_nodebird/dashboard

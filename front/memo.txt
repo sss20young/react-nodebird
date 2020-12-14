@@ -1,0 +1,14 @@
+// Redux의 state를 쓰면 React의 state를 쓰지 않아도 됨
+// 안정성이 큼, state 통제 용이
+
+// 흩뿌려져있는 state들을 하나로 모음
+{
+    isLoggedIn: false, // 로그인 여부
+    user: {}, // 로그인한 사용자
+    mainPosts: [], // 메인 게시글들
+    ...
+} -> store
+
+action -> state를 바꾸는 행동			ex) 로그인 액션
+dispatch -> action을 실행				ex) 로그인 액션 dispatch
+reducer -> action의 결과로 state를 어떻게 바꿀지 정의	ex) 로그인 액션 시 -> isLoggedIn state를 true로
