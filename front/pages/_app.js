@@ -3,10 +3,10 @@
 import React from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
+import withReduxSaga from 'next-redux-saga';
+
 import AppLayout from '../components/AppLayout';
-import withRedux from 'next-redux-wrapper';
-import { compose, createStore, applyMiddleware } from 'redux';
-import reducer from '../reducers';
+import wrapper from '../store/configureStore';
 
 const NodeBird = ({ Component }) => {
     return (
@@ -24,16 +24,8 @@ const NodeBird = ({ Component }) => {
 };
 
 NodeBird.propTypes = {
-    Component: PropTypes.elementType,
+    Component: PropTypes.elementType.isRequired,
 };
 
-
 // withRedux는 NodeBird의 prpos로 store를 넣어주는 역할을 함
-export default withRedux((initialState, options) => {
-    const middlewares = [];
-    // const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
-    const enhancer = compose(applyMiddleware(...middlewares), 
-        typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f,);
-    const store = createStore(reducer, initialState, enhancer);
-    return store;
-})(NodeBird);
+export default wrapper.withRedux(withReduxSaga(NodeBird));

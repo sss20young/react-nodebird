@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import Router from 'next/router';
 import { Form, Input, Select, Checkbox, Button } from 'antd';
-import { useDispatch } from 'react-redux';
-import { signUpAction } from '../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { SIGN_UP_REQUEST } from '../reducers/user';
 
 const { Option } = Select;
 
@@ -22,6 +23,14 @@ const Signup = () => {
     const [ rememberme, setRememberme ] = useState(true);
     const [ passworderror, setPasswordError ] = useState(false);
     const dispatch = useDispatch();
+    const { isSigningUp, me } = useSelector(state => state.user);
+
+    useEffect(() => {
+        if (me) {
+            alert('로그인 했으니 메인페이지로 이동합니다.');
+            Router.push('/');
+        }
+    }, [me && me.id]);
 
     // useCallback: state 변경시, props로 전달하는 함수도 리렌더링 되는데, 이때 리렌더링 방지
     const onSubmit = useCallback((e) => {
@@ -29,11 +38,14 @@ const Signup = () => {
         if(password !== passwordcheck) {
             return setPasswordError(true);
         }
-        dispatch(signUpAction({
-            id,
-            password,
-            gender,
-        }));
+        dispatch({
+            type: SIGN_UP_REQUEST,
+            data: {
+                id,
+                password,
+                gender,
+            }
+        });
 
     }, [password, passwordcheck]);
 
@@ -128,7 +140,7 @@ const Signup = () => {
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">가입하기</Button>
+                    <Button type="primary" htmlType="submit" loading={isSigningUp}>가입하기</Button>
                 </Form.Item>
             </Form>
         </>
