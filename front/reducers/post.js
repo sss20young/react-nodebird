@@ -45,7 +45,7 @@ export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
 export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 
 const dummyPost = {
-    id: 1,
+    id: 2,
     User: {
         id: 1,
         nickname: 'SeoyoungKim',
@@ -96,7 +96,7 @@ const reducer = (state = initialState, action) => {
         case ADD_POST_SUCCESS:
             return {
                 ...state,
-                mainPosts: [dummyPost, ...state.mainPosts],
+                mainPosts: [action.data, ...state.mainPosts],
                 isAddingPost: false,
                 postAdded: true,
             };
@@ -134,6 +134,20 @@ const reducer = (state = initialState, action) => {
                 isAddingComment: false,
                 addCommentErrorReason: action.error,
                 commentAdded: false,
+            };
+        case LOAD_MAIN_POSTS_REQUEST:
+            return {
+                ...state,
+                mainPosts: [],
+            };
+        case LOAD_MAIN_POSTS_SUCCESS:
+            return {
+                ...state,
+                mainPosts: action.data,
+            };
+        case LOAD_MAIN_POSTS_FAILURE:
+            return {
+                ...state,
             };
         default:
             return {

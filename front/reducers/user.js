@@ -70,7 +70,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isLoggingIn: false,
                 isLoggedIn: true,
-                me: dummyUser,
+                me: action.data,
             };
         case LOG_IN_FAILURE:
             return {
@@ -83,8 +83,32 @@ const reducer = (state = initialState, action) => {
         case LOG_OUT_REQUEST:
             return {
                 ...state,
+                isLoggingOut: true,
+            };
+        case LOG_OUT_SUCCESS:
+            return {
+                ...state,
+                isLoggingOut: false,
                 isLoggedIn: false,
                 me: null,
+            };
+        case LOG_OUT_FAILURE:
+            return {
+                ...state,
+                isLoggingOut: false,
+            };
+        case LOAD_USER_REQUEST:
+            return {
+                ...state,
+            };
+        case LOAD_USER_SUCCESS:
+            return {
+                ...state,
+                me: action.data,
+            };
+        case LOAD_USER_FAILURE:
+            return {
+                ...state,
             };
         case SIGN_UP_REQUEST:
             return {

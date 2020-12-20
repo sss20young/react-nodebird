@@ -18,13 +18,16 @@ const PostForm = () => {
     }, [postAdded === true]);
 
     const onSubmitForm = useCallback(() => {
+        if (!text || !text.trim()) {
+            return alert('게시글을 작성하세요!');
+        }
         dispatch({
             type: ADD_POST_REQUEST,
             data: {
-                text,
-            }
+                content: text.trim(),
+            },
         })
-    }, []);
+    }, [text]);
 
     return(
         <Form style={{ margin: '20px' }} encType="multipart/form-data" onFinish={onSubmitForm}>

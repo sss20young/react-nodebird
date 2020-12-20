@@ -19,6 +19,7 @@ const Signup = () => {
     const [ id, setId ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ passwordcheck, setPasswordcheck ] = useState('');
+    const [ nickname, setNickname ] = useState('');
     const [ gender, setGender ] = useState('');
     const [ rememberme, setRememberme ] = useState(true);
     const [ passworderror, setPasswordError ] = useState(false);
@@ -41,13 +42,13 @@ const Signup = () => {
         dispatch({
             type: SIGN_UP_REQUEST,
             data: {
-                id,
+                userId: id,
                 password,
-                gender,
+                nickname,
             }
         });
 
-    }, [password, passwordcheck]);
+    }, [id, nickname, password, passwordcheck]);
 
     const onChangeId = useCallback((e) => {
         setId(e.target.value);
@@ -61,6 +62,10 @@ const Signup = () => {
         setPasswordError(e.target.value !== password);
         setPasswordcheck(e.target.value);
     }, [password]);
+
+    const onChangeNickname = useCallback((e) => {
+        setNickname(e.target.value);
+    }, []);
 
     const onChangeGender = useCallback(value => {
         switch (value) {
@@ -114,6 +119,15 @@ const Signup = () => {
                     <Input.Password />
                 </Form.Item>
                 <div>{passworderror && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}</div>
+
+                <Form.Item
+                    label="닉네임"
+                    name="nickname"
+                    rules={[{ required: true, message: 'Please input your nickname!' }]}
+                    value={nickname}
+                    onChange={onChangeNickname}>
+                    <Input />
+                </Form.Item>
 
                 <Form.Item 
                     name="gender" 
