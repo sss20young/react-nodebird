@@ -17,7 +17,7 @@ const PostForm = () => {
         setText('');
     }, [postAdded === true]);
 
-    const onSubmitForm = useCallback(() => {
+    const onSubmitForm = useCallback(() => { // useCallback에서 state쓰면 []배열 안에 넣기
         if (!text || !text.trim()) {
             return alert('게시글을 작성하세요!');
         }

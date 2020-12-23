@@ -47,7 +47,7 @@ router.post('/logout', (req, res) => {
     req.session.destroy();
 });
 router.post('/login', (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
+    passport.authenticate('local', (err, user, info) => { // passport/local.js에서 done(null, user, { reason: })이 여기에 (err, user, info)로 이어짐
         if (err) {
             console.error(err);
             return next(err);
@@ -65,15 +65,15 @@ router.post('/login', (req, res, next) => {
                     include: [{
                         model: db.Post,
                         as: 'Posts',
-                        attributes: ['id'],
+                        attributes: ['id'], // 개수 세기 위함
                     }, {
                         model: db.User,
                         as: 'Followings',
-                        attributes: ['id'],
+                        attributes: ['id'], // 개수 세기 위함
                     }, {
                         model: db.User,
                         as: 'Followers',
-                        attributes: ['id'],
+                        attributes: ['id'], // 개수 세기 위함
                     }],
                     attributes: ['id', 'nickname', 'userId'],
                 });

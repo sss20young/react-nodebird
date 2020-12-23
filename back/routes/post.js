@@ -5,10 +5,10 @@ const router = express.Router();
 
 router.post('/', async (req, res, next) => {
     try {
-        const hashtags = req.body.content.match(/#[^\s]+/g); // hashtag 추출
+        const hashtags = req.body.content.match(/#[^\s]+/g); // hashtag 추출 // 정규표현식: regexr.com
         const newPost = await db.Post.create({
             content: req.body.content,
-            userId: req.user.id,
+            UserId: req.user.id,
         })
         if (hashtags) {
             const result = await Promise.all(hashtags.map(tag => db.Hashtag.findOrCreate({
@@ -16,7 +16,7 @@ router.post('/', async (req, res, next) => {
                     name: tag.slice(1).toLowerCase()
                 },
             })));
-            await newPost.addHashtags(result.map(r => r[0]));
+            await newPost.addHashtags(result.map(r => r[0])); // result는 2차원 배열
         }
         // const User = await newPost.getUser();
         // newPost.User = User;

@@ -19,7 +19,7 @@ passportConfig();
 
 app.use(morgan('dev')); // 로그 기록
 
-// req.body 사용
+// 요청에 본문이 들어왔을 때 req.body에 넣어주어서 사용가능하게 함 
 app.use(express.json()); // json 형식의 본문 처리
 app.use(express.urlencoded({ extended: true })); // form으로 넘어온 데이터 처리
 

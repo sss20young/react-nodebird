@@ -52,8 +52,8 @@ const PostCard = ({ post }) => {
                 extra={<Button>팔로우</Button>}
                 >
                 <Card.Meta
-                    avatar={<Avatar>{post.nickname}</Avatar>} // TODO: post.nickname[0]
-                    title={post.nickname}
+                    avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
+                    title={post.User.nickname}
                     description={post.content}
                     />
             </Card>
