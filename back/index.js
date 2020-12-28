@@ -11,6 +11,7 @@ const db = require('./models');
 const userAPIRouter = require('./routes/user');
 const postsAPIRouter = require('./routes/posts');
 const postAPIRouter = require('./routes/post');
+const hashtagAPIRouter = require('./routes/hashtag');
 
 dotenv.config(); // process.env로 접근
 const app = express();
@@ -18,6 +19,7 @@ db.sequelize.sync();
 passportConfig();
 
 app.use(morgan('dev')); // 로그 기록
+app.use('/', express.static('uploads')); // uploads 폴더에 들어있는 파일들을 다른 서버에서 자유롭게 이용가능하게 함 // uploads 폴더를 루트폴더(/)처럼 사용하게 함
 
 // 요청에 본문이 들어왔을 때 req.body에 넣어주어서 사용가능하게 함 
 app.use(express.json()); // json 형식의 본문 처리
@@ -48,6 +50,7 @@ app.use(passport.session()); // passport.session()이 내부적으로 expressSes
 app.use('/api/user', userAPIRouter);
 app.use('/api/posts', postsAPIRouter);
 app.use('/api/post', postAPIRouter);
+app.use('/api/hashtag', hashtagAPIRouter);
 
 app.listen(3065, () => {
     console.log('server is running on http://localhost:3065');

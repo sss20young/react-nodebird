@@ -2,14 +2,17 @@ const express = require('express');
 const db = require('../models');
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/:tag', async (req, res, next) => {
     try {
         const posts = await db.Post.findAll({
             include: [{
-                model: db.User,
-                attiributes: ['id', 'nickname'],
+                model: db.Hashtag,
+                where: { name: decodeURIComponent(req.params.tag) }, // 한글로 변환 
             }, {
-                model: db.Image,
+                model: db.User,
+                attributes: ['id', 'nickname'],
+            }, {
+                modle: db.Image,
             }, {
                 model: db.User,
                 through: 'Like',
@@ -25,7 +28,6 @@ router.get('/', async (req, res, next) => {
                     model: db.Image,
                 }]
             }],
-            order: [['createdAt', 'DESC']], // DESC는 내림차순, ASC는 오름차순
         });
         res.json(posts);
     } catch (e) {
